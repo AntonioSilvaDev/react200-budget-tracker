@@ -1,6 +1,6 @@
 # React/Redux Budget Tracker
 
-A bare bones react starter set of files
+A bare bones react starter set of files, that I have turned into a fully functional budget tracker app using react/redux.
 
 ## Setup
 
