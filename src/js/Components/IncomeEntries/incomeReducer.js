@@ -29,7 +29,6 @@ export default function IncomeReducer (state = defaultState, action) {
                 description: '',
                 amount: '',
                 lineItems: [
-//state goes here because the lineItems are what is being update on the click 'add_expense'
                     ...state.lineItems,
                     { description, amount }
                 ]

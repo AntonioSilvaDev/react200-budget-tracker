@@ -18,22 +18,32 @@ export default class IncomeEntries extends React.Component {
     handleDescriptionInput(event){
         const { dispatch } = this.props;
         const { value } = event.target;
+
         dispatch(updateIncomeDescription(value));
     }
 
     handleAmountInput(event) {
         const { dispatch } = this.props;
         const { value } = event.target;
+
         dispatch(updateIncomeAmount(value));
     }
 
     handleAddIncome(){
         const { description, amount, dispatch } = this.props;
-        dispatch(addIncome(description, amount));
+
+        if(!description || !amount){
+            alert('Please enter both an income description and amount');
+            return false;
+        } else {
+            dispatch(addIncome(description, amount));
+        }
+
     }
 
     render() {
         const { description, amount, lineItems } = this.props;
+
         return (
             <div className='card border-danger mb-3'>
                 <div className='card-header text-white bg-success'>Income Entries</div>
@@ -77,8 +87,8 @@ export default class IncomeEntries extends React.Component {
                             </thead>
                             <tbody>
                                 {
-                                    lineItems.map(lineItem => (
-                                        <tr>
+                                    lineItems.map((lineItem, index) => (
+                                        <tr key={ index }>
                                             <td>{ lineItem.description }</td>
                                             <td>{ lineItem.amount.toFixed(2) }</td>
                                         </tr>

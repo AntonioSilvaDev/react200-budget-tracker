@@ -11,30 +11,34 @@ export default class ExpenseEntries extends React.Component {
     constructor(props) {
         super(props);
 
-    //binding the methods to context of the components
-    //This only has to be done because these methods are called
-    //back by event emitters(which lose context).
     this.handleDescriptionInput = this.handleDescriptionInput.bind(this);
     this.handleAmountInput = this.handleAmountInput.bind(this);
     this.handleAddExpense = this.handleAddExpense.bind(this);
     }
 
     handleDescriptionInput(event){
-        //dispatch provided by connect()
         const { dispatch } = this.props;
         const { value } = event.target;
+
         dispatch(updateExpenseDescription(value));
     }
 
     handleAmountInput(event){
         const { dispatch } = this.props;
         const { value } = event.target;
+      
         dispatch(updateExpenseAmount(value));
     }
 
     handleAddExpense(){
         const { description, amount, dispatch } = this.props;
-        dispatch(addExpense(description, amount));
+
+        if(!description || !amount){
+            alert('Please enter both an expense description and amount');
+            return false;
+        } else {
+            dispatch(addExpense(description, amount));
+        }
     }
 
     render() {
@@ -82,8 +86,8 @@ export default class ExpenseEntries extends React.Component {
                             </thead>
                             <tbody>
                                 {
-                                    lineItems.map(lineItem => (
-                                        <tr>
+                                    lineItems.map((lineItem, index) => (
+                                        <tr key={index}>
                                             <td>{ lineItem.description }</td>
                                             <td>{ lineItem.amount.toFixed(2) }</td>
                                         </tr>
